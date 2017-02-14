@@ -1,0 +1,92 @@
+A Linked Open Data infrastructure can have different characteristics:
+
+ - central or distributed data storage 
+ - central or distributed data indexing 
+ - independent or cooperative data sources
+
+Central Repository:
+
+ - RDF data put into a single RDF store
+ - Advantage: 
+	 - Query evaluation can be implemented efficiently due to optimized index structures
+	 - Original data sources are not involved in query evaluation
+ - Disadvantage:
+	 - If data at data sources changes frequently, data can become obsolete at central storage
+
+Federation:
+
+- Queries sent to a mediator which then executes query on behalf of user on the data sources
+-  Mediator maintains global index with statistics
+	- Used for sending queries to data sources and query optimizatron
+
+Peer to Peer data management:
+
+- Data and index data maintained in a distributed fashion
+- no central mediator
+
+Requirements of Federation Infrastructure
+---------------------------------------------------
+
+- Declarative language
+	- concise formulation of complex queries
+- Data catalogue
+	- map query expressions to Linked Open Data sources
+	- mappings are also needed between vocabularies in order to extend queries with similar terms
+- Query Optimizer
+	- optimize the query execution:
+		- minimize processing cost and the communication cost involved 
+- Data protocol
+	- how queries and results are exchanged between data sources
+	- e.g. SPARQL
+- Provenance information
+- Data changes at Data Sources: Data changes on Data Sources affect statistics and data entities which influences quality of the query optimization
+- Scalability: implies two main challenges:
+	- Efficient statistics management
+	- effective query optimization and execution
+|   |   |Central Repository   | Data source federation  |   |
+|---|---|---|---|---|
+| Data Location  | local copies  | at data sources  |   |   |
+| Meta data  | data statistics   | data source metadata  |   |   |
+| Query processing  | local  | local+remote yes  |   |   |
+| Require updates  |yes (data)   |yes (index)   |   |   |
+| Complete results  |yes   |  yes |   |   |
+| up-to-date results  | maybe  | yes  |   |   |
+|   |   |   |   |   |
+
+Statistics Management
+
+- Accuracy vs. index size
+- Updating statistics
+
+Query Optimization and Execution
+
+- execution order of query operators significantly influences the overall query evaluation cost
+
+- Minimizing communication cost:
+	- number of contacted data sources influences the performance of the query execution due to the communication overheads
+	- Optimizing execution localization
+
+Federator
+------------
+Responsible for:
+
+- maintaining meta data about known data sources
+- managing the whole query evaluation process
+
+Actual query processing:
+
+- query parsing
+- query adaptation
+- query mapping
+	- selecting data sources
+- query optimization
+- query execution
+
+Data Source Selection
+---------------------------
+
+- very likely that a single data source may only be able to return results for parts of the query
+- respective query fragments have to be send to different data sources and the individual results have to be merged
+
+Join Strategies
+------------------

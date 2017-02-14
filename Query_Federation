@@ -1,0 +1,42 @@
+DARQ
+====
+
+A query is processed in 4 stages:
+1. Parsing: conversion of query string into an abstract syntax tree
+2. Query Planning: 
+	- engine decompose query
+	- builds multiple sub-queries according to information in service descriptions
+3. Optimization:
+	- build optimized query execution plan 
+
+Federation System
+------------------
+- Source description
+	- RDF Indexes
+	- Statistical information
+- Query planning
+	- Source Selection
+	- Build Sub-Queries
+		- Query Rewriting
+- Query Optimization
+	- Logical Optimization
+	- Physical Optimization
+- Query Costing
+	- Cost Model
+		- Cardinality
+		- Selectivity
+- Query Execution
+	- Adaptive Query Engine (ANAPSID)
+	- Result Merging
+
+
+
+Source Description
+------------------
+
+
+Query Optimization
+------------------
+
+Cost Model
+----------
